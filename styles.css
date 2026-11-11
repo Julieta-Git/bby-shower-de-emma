@@ -323,3 +323,120 @@ main, .pie { position: relative; z-index: 1; }
   .cuenta span { font-size: 1.5rem; }
   .cuenta small { font-size: .68rem; }
 }
+
+/* =========================================================
+   Rediseño (demo): más cálido y artesanal, como la inspo
+   ========================================================= */
+:root {
+  --rosa: #f9dbe6;
+  --rosa-suave: #fdeaf0;
+  --amarillo: #fff0c2;
+  --amarillo-suave: #fff8e1;
+}
+.amarillo { --sombra: 0 10px 28px rgba(214, 160, 60, .18); }
+
+/* capas: doodles atrás, contenido adelante */
+.seccion > *, .pie > * { position: relative; z-index: 1; }
+.seccion > .doodle, .pie > .doodle { position: absolute; z-index: 0; }
+.seccion > .guirnalda { position: absolute; z-index: 1; }
+.seccion > .baja { position: absolute; z-index: 2; }
+
+/* doodles sueltos dibujados en línea */
+.doodle { pointer-events: none; opacity: .6; max-width: none; margin: 0; }
+.doodle svg { display: block; width: 100%; height: 100%; fill: none; stroke: #ee8dbb; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.doodle-relleno { opacity: .85; }
+.doodle-relleno svg { fill: #ffd95a; stroke: #f2c443; }
+.doodle-puntos svg { fill: #ee8dbb; stroke: none; }
+
+/* festón entre secciones en vez de corte recto */
+.seccion + .seccion::before, .pie::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px; z-index: 1;
+  max-width: none; margin: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 14'%3E%3Cpath d='M0 0H40V2A20 12 0 0 1 0 2Z'/%3E%3C/svg%3E") 0 0 / 40px 14px repeat-x;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 14'%3E%3Cpath d='M0 0H40V2A20 12 0 0 1 0 2Z'/%3E%3C/svg%3E") 0 0 / 40px 14px repeat-x;
+}
+.seccion.amarillo + .seccion::before, .pie::before { background: var(--amarillo); }
+.seccion.rosa + .seccion::before { background: var(--rosa); }
+
+/* títulos con contorno rosa parejo */
+.nombre-bebe, .portada-titulo {
+  color: #ffd95a;
+  text-shadow: 2.5px 0 #ee8dbb, -2.5px 0 #ee8dbb, 0 2.5px #ee8dbb, 0 -2.5px #ee8dbb,
+    1.8px 1.8px #ee8dbb, -1.8px 1.8px #ee8dbb, 1.8px -1.8px #ee8dbb, -1.8px -1.8px #ee8dbb,
+    0 6px 0 rgba(209, 111, 159, .25);
+}
+.inicio .sobre-titulo {
+  font-weight: 700; font-size: clamp(2.1rem, 9.5vw, 3rem); letter-spacing: .04em; color: #fffdf8;
+  text-shadow: 2px 0 #ee8dbb, -2px 0 #ee8dbb, 0 2px #ee8dbb, 0 -2px #ee8dbb,
+    1.4px 1.4px #ee8dbb, -1.4px 1.4px #ee8dbb, 1.4px -1.4px #ee8dbb, -1.4px -1.4px #ee8dbb;
+}
+
+/* pantalla de inicio más llena */
+.inicio { background: linear-gradient(180deg, var(--amarillo-suave) 0%, var(--rosa) 60%); padding-top: 90px; }
+.inicio-sub { font-size: 1.3rem; letter-spacing: .08em; margin-top: 12px; }
+.inicio-fecha { font-family: var(--fuente-mano); font-weight: 600; font-size: 1.05rem; color: var(--texto); margin: 4px auto 0; }
+
+/* transición: el sol se funde en un círculo amarillo liso */
+.portada-destello {
+  position: absolute; left: 24%; top: 24%; width: 52%; height: 52%;
+  border-radius: 50%; background: #ffe27a; opacity: 0;
+}
+.portada.is-expandiendo .portada-destello { opacity: 1; }
+.portada.is-expandiendo .portada-sol { opacity: 0; transition: opacity .3s ease; }
+
+/* fotos: todas como polaroid */
+.foto-marco {
+  border: 0; border-radius: 6px; padding: 10px 10px 0; aspect-ratio: auto;
+  overflow: visible; background: #fffdf8;
+}
+.foto-marco img { height: auto; border-radius: 3px; }
+.foto-marco figcaption {
+  font-family: var(--fuente-script); font-weight: 700; font-size: 1.5rem; line-height: 1;
+  color: var(--rosa-texto); text-align: center; padding: 10px 0 12px;
+}
+.foto-eco { width: min(82%, 320px); }
+.foto-eco img { aspect-ratio: 16 / 10; object-fit: cover; filter: saturate(.9); }
+.foto-eco.aparece.visible { transform: rotate(-2deg); }
+.foto-confirmar { width: min(86%, 300px); }
+.foto-confirmar img { aspect-ratio: 4 / 5; object-fit: cover; }
+.foto-marco::before, .foto-marco::after, .polaroid:nth-child(2)::before {
+  content: ""; position: absolute; top: -10px; width: 72px; height: 22px; z-index: 2;
+  background: rgba(238, 141, 187, .5); border-radius: 2px;
+}
+.foto-marco::before { left: -14px; transform: rotate(-12deg); }
+.foto-marco::after { right: -14px; transform: rotate(12deg); }
+.foto-marco.sin-foto::before, .foto-marco.sin-foto::after { display: none; }
+
+/* polaroids de los papis */
+.polaroids { padding: 0 16px; }
+.polaroid { position: relative; }
+.polaroid:nth-child(2)::before { left: 50%; margin-left: -36px; top: -12px; transform: rotate(-4deg); background: rgba(255, 217, 90, .75); }
+.polaroid::after {
+  content: "♥"; position: absolute; left: 0; right: 0; bottom: 5px; text-align: center;
+  color: var(--rosa-fuerte); font-size: 15px; line-height: 1;
+}
+
+/* garabato bajo los nombres */
+.garabato { display: block; width: 90px; height: 12px; margin: 4px auto 22px; }
+
+/* lista de regalos más liviana */
+.titulo-regalos { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.regalito { width: 44px; height: 44px; flex: none; }
+.regalo li { padding: 4px 0 4px 24px; border-top-color: rgba(238, 141, 187, .18); }
+.regalo li::before {
+  top: 9px; width: 13px; height: 13px; border-radius: 0; box-shadow: none; background: var(--rosa-fuerte);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.6 6 6.4.6-4.9 4.3 1.5 6.3L12 16.4 6.4 19.7l1.5-6.3L3 9.1l6.4-.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.6 6 6.4.6-4.9 4.3 1.5 6.3L12 16.4 6.4 19.7l1.5-6.3L3 9.1l6.4-.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* guirnaldas más visibles */
+.guirnalda::before { border-bottom: 2px dashed rgba(238, 141, 187, .8); }
+.guirnalda .colgante i { width: 2px; background: rgba(238, 141, 187, .8); }
+.guirnalda .colgante svg { width: 20px; height: 20px; opacity: 1; }
+.guirnalda .colgante.es-amarilla svg { fill: #ffd95a; }
+.guirnalda .colgante.es-sol svg { width: 32px; height: 32px; }
+
+/* detalles */
+.pie-sol { animation: none; }
+.soles-fondo { z-index: 2; }
+.solcito svg { opacity: .6; }
