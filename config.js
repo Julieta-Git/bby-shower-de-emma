@@ -6,13 +6,13 @@ window.INVITACION = {
   bebe: "Emma Isabella",
   papis: "Rodrigo y Solange",
 
-  // PENDIENTE: fecha y hora del baby shower.
+  // Fecha y hora del baby shower.
   // Formato: "2026-12-20T16:00" (año-mes-día T hora:minutos, hora de Argentina).
-  fecha: null,
+  fecha: "2026-12-06T14:00",
 
-  // PENDIENTE: nombre del lugar y dirección (el link de Maps ya está).
+  // Lugar (dirección opcional: el link de Maps ya está).
   lugar: {
-    nombre: null,
+    nombre: "Quinta La Alfonsina",
     direccion: null,
     mapsUrl: "https://maps.app.goo.gl/JqZJ1VdBRfayikkC6"
   },

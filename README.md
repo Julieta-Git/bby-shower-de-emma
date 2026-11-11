@@ -24,4 +24,5 @@ Poner en `assets/fotos/`:
 ## Estado
 
 - Implementado: portada para abrir, solecitos flotando, guirnaldas, secciones de la inspo, lista de regalos, botón Cómo llegar, cuenta regresiva y confirmación por WhatsApp (se activan con los datos).
-- Pendiente: fecha y hora, nombre/dirección del lugar, WhatsApp, publicar.
+- Publicada en https://bby-shower-de-emma.vercel.app
+- Pendiente: WhatsApp para confirmar (y fecha límite opcional).

@@ -47,6 +47,7 @@
   });
 
   /* ---------- Fecha y lugar ---------- */
+  var lugar = datos.lugar || {};
   var fecha = datos.fecha ? new Date(datos.fecha + ":00-03:00") : null;
   if (fecha && isNaN(fecha)) fecha = null;
 
@@ -66,7 +67,6 @@
     agendar.hidden = false;
   }
 
-  var lugar = datos.lugar || {};
   if (lugar.nombre) $("#dato-lugar").textContent = lugar.nombre;
   if (lugar.direccion) $("#dato-direccion").textContent = lugar.direccion;
   if (lugar.mapsUrl) $("#como-llegar").href = lugar.mapsUrl;
