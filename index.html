@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baby shower de Emma Isabella</title>
+  <meta name="description" content="Un pequeño rayito de sol está por llegar. Te invitamos al baby shower de Emma Isabella.">
+  <meta name="theme-color" content="#fbd6ec">
+  <meta property="og:title" content="Baby shower de Emma Isabella ☀">
+  <meta property="og:description" content="Un pequeño rayito de sol está por llegar a nuestras vidas. ¡Te esperamos!">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Mali:wght@400;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="is-locked">
+
+  <!-- Sol reutilizable -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="sol" viewBox="0 0 200 200">
+        <g class="sol-rayos">
+          <g fill="#ffd95a">
+            <path d="M100 6 L110 38 L90 38 Z"/>
+            <path d="M100 194 L90 162 L110 162 Z"/>
+            <path d="M6 100 L38 90 L38 110 Z"/>
+            <path d="M194 100 L162 110 L162 90 Z"/>
+            <path d="M33.5 33.5 L62 49 L49 62 Z"/>
+            <path d="M166.5 166.5 L138 151 L151 138 Z"/>
+            <path d="M166.5 33.5 L151 62 L138 49 Z"/>
+            <path d="M33.5 166.5 L49 138 L62 151 Z"/>
+          </g>
+          <g fill="#ffe788">
+            <path d="M136 15 L134 46 L119 40 Z"/>
+            <path d="M64 185 L66 154 L81 160 Z"/>
+            <path d="M15 64 L46 66 L40 81 Z"/>
+            <path d="M185 136 L154 134 L160 119 Z"/>
+            <path d="M64 15 L81 40 L66 46 Z"/>
+            <path d="M136 185 L119 160 L134 154 Z"/>
+            <path d="M15 136 L40 119 L46 134 Z"/>
+            <path d="M185 64 L160 81 L154 66 Z"/>
+          </g>
+        </g>
+        <circle cx="100" cy="100" r="52" fill="#ffe27a"/>
+        <circle cx="100" cy="100" r="52" fill="url(#solBrillo)"/>
+        <g class="sol-ojos" fill="#5b4636">
+          <ellipse cx="82" cy="96" rx="4.5" ry="6"/>
+          <ellipse cx="118" cy="96" rx="4.5" ry="6"/>
+        </g>
+        <ellipse cx="70" cy="112" rx="8" ry="5" fill="#ffb3c8" opacity=".8"/>
+        <ellipse cx="130" cy="112" rx="8" ry="5" fill="#ffb3c8" opacity=".8"/>
+        <path d="M91 112 Q100 121 109 112" fill="none" stroke="#5b4636" stroke-width="3.5" stroke-linecap="round"/>
+      </symbol>
+      <radialGradient id="solBrillo" cx="38%" cy="32%" r="70%">
+        <stop offset="0" stop-color="#fff6c9" stop-opacity=".9"/>
+        <stop offset=".6" stop-color="#ffe27a" stop-opacity="0"/>
+      </radialGradient>
+      <symbol id="estrella" viewBox="0 0 24 24">
+        <path d="M12 2.5l2.6 6 6.4.6-4.9 4.3 1.5 6.3L12 16.4 6.4 19.7l1.5-6.3L3 9.1l6.4-.6z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Sobre de apertura -->
+  <div class="portada" id="portada" role="dialog" aria-labelledby="portada-titulo">
+    <div class="portada-cielo" aria-hidden="true"></div>
+    <div class="portada-contenido">
+      <svg class="portada-sol" aria-hidden="true"><use href="#sol"/></svg>
+      <p class="portada-chico">Tenés una invitación</p>
+      <h1 class="portada-titulo" id="portada-titulo">Emma Isabella</h1>
+      <button class="boton boton-abrir" id="abrir" type="button">Abrir invitación</button>
+    </div>
+  </div>
+
+  <div class="soles-fondo" id="soles-fondo" aria-hidden="true"></div>
+
+  <main id="contenido">
+
+    <!-- Inicio -->
+    <header class="seccion inicio rosa">
+      <svg class="sol-grande" aria-hidden="true"><use href="#sol"/></svg>
+      <p class="sobre-titulo aparece">Dulce espera</p>
+      <h2 class="nombre-bebe aparece" data-bebe>Emma Isabella</h2>
+      <p class="inicio-sub aparece">Baby shower</p>
+      <a class="baja" href="#rayito" aria-label="Ver más">
+        <span></span>
+      </a>
+    </header>
+
+    <!-- Rayito de sol -->
+    <section class="seccion amarillo" id="rayito">
+      <div class="guirnalda guirnalda-colgante" aria-hidden="true"></div>
+      <h2 class="frase aparece">Un pequeño rayito de sol<br>está por llegar a nuestras vidas</h2>
+      <figure class="foto-marco foto-eco aparece">
+        <img data-foto="ecografia" alt="Ecografía de Emma Isabella" loading="lazy">
+        <div class="foto-reemplazo" aria-hidden="true"><svg><use href="#sol"/></svg></div>
+      </figure>
+    </section>
+
+    <!-- Papis -->
+    <section class="seccion rosa">
+      <p class="sobre-titulo aparece">Mis papis</p>
+      <h2 class="titulo aparece" data-papis>Rodrigo y Solange</h2>
+      <span class="linea aparece" aria-hidden="true"></span>
+      <p class="texto aparece">Les contamos que con cada patadita nos recuerda que falta poco para conocer a nuestra bebé. ¿Y qué mejor manera de esperar su llegada que celebrando con las personas que más queremos?</p>
+      <div class="polaroids" id="polaroids"></div>
+    </section>
+
+    <!-- Cuándo y dónde -->
+    <section class="seccion amarillo" id="evento">
+      <div class="guirnalda" aria-hidden="true"></div>
+      <h2 class="titulo aparece">¿Cuándo y dónde?</h2>
+      <div class="tarjetas">
+        <article class="tarjeta aparece">
+          <svg class="tarjeta-icono" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="31" rx="7" fill="#fff" stroke="#f29bc4" stroke-width="3"/><path d="M7 19h34" stroke="#f29bc4" stroke-width="3"/><path d="M16 6v8M32 6v8" stroke="#f29bc4" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="30" r="5" fill="#ffd95a"/></svg>
+          <h3>Día y hora</h3>
+          <p class="dato" id="dato-fecha">Fecha a confirmar</p>
+          <p class="dato-sub" id="dato-hora"></p>
+          <a class="boton boton-chico" id="agendar" hidden>Agendar</a>
+        </article>
+        <article class="tarjeta aparece">
+          <svg class="tarjeta-icono" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 44s14-13.2 14-24a14 14 0 0 0-28 0c0 10.8 14 24 14 24z" fill="#fff" stroke="#f29bc4" stroke-width="3"/><circle cx="24" cy="20" r="6" fill="#ffd95a"/></svg>
+          <h3>Lugar</h3>
+          <p class="dato" id="dato-lugar">Lugar a confirmar</p>
+          <p class="dato-sub" id="dato-direccion"></p>
+          <a class="boton boton-chico" id="como-llegar" target="_blank" rel="noopener">Cómo llegar</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Regalos -->
+    <section class="seccion rosa" id="regalos">
+      <p class="sobre-titulo aparece">Si querés hacerle un regalito</p>
+      <h2 class="titulo aparece">Lista de regalos</h2>
+      <p class="texto aparece">Te dejamos algunas ideas, solo a modo de sugerencia. ¡Lo más importante es que estés!</p>
+      <div class="regalos" id="lista-regalos"></div>
+    </section>
+
+    <!-- Confirmación -->
+    <section class="seccion amarillo" id="confirmar">
+      <svg class="sol-chico" aria-hidden="true"><use href="#sol"/></svg>
+      <h2 class="titulo aparece">Falta muy poquito</h2>
+      <figure class="foto-marco foto-confirmar aparece">
+        <img data-foto="confirmar" alt="Rodrigo y Solange con globos rosas, anunciando que esperan una nena" loading="lazy">
+      </figure>
+      <div class="cuenta aparece" id="cuenta" hidden>
+        <div><span id="c-dias">0</span><small>días</small></div>
+        <div><span id="c-horas">0</span><small>horas</small></div>
+        <div><span id="c-min">0</span><small>min</small></div>
+        <div><span id="c-seg">0</span><small>seg</small></div>
+      </div>
+      <p class="texto aparece" id="cuenta-llego" hidden>¡Hoy es el gran día! ☀</p>
+      <p class="texto aparece">Nos encantaría que nos acompañes. Por favor, confirmá tu asistencia<span id="confirmar-antes"></span>.</p>
+      <a class="boton boton-grande aparece" id="boton-confirmar" target="_blank" rel="noopener" hidden>Confirmar asistencia</a>
+      <p class="dato-sub aparece" id="confirmar-pendiente">El botón para confirmar por WhatsApp aparece muy pronto.</p>
+    </section>
+
+  </main>
+
+  <footer class="pie rosa">
+    <svg class="pie-sol" aria-hidden="true"><use href="#sol"/></svg>
+    <p>Con amor, <span data-papis>Rodrigo y Solange</span></p>
+    <p class="pie-chico">y Emma, desde la panza</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

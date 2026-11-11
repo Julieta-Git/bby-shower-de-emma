@@ -1,0 +1,207 @@
+(function () {
+  "use strict";
+
+  var datos = window.INVITACION || {};
+  var reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (sel) { return document.querySelector(sel); };
+
+  /* ---------- Portada: abrir la invitación ---------- */
+  var portada = $("#portada");
+  $("#abrir").addEventListener("click", function () {
+    portada.classList.add("is-abierta");
+    document.body.classList.remove("is-locked");
+    lanzarSolcitos(14);
+    setTimeout(function () { portada.remove(); }, 1000);
+  });
+
+  /* ---------- Nombres ---------- */
+  document.querySelectorAll("[data-papis]").forEach(function (el) {
+    if (datos.papis) el.textContent = datos.papis;
+  });
+  document.querySelectorAll("[data-bebe]").forEach(function (el) {
+    if (datos.bebe) el.textContent = datos.bebe;
+  });
+
+  /* ---------- Fotos (si no están, solecito) ---------- */
+  document.querySelectorAll("img[data-foto]").forEach(function (img) {
+    var marco = img.closest(".foto-marco");
+    var src = datos.fotos && datos.fotos[img.dataset.foto];
+    if (!src) { marco.classList.add("sin-foto"); return; }
+    img.addEventListener("error", function () { marco.classList.add("sin-foto"); });
+    img.src = src;
+  });
+
+  /* ---------- Polaroids de los papis ---------- */
+  var polaroids = $("#polaroids");
+  var fotosPapis = (datos.fotos && datos.fotos.papis) || [];
+  fotosPapis.forEach(function (src) {
+    var fig = document.createElement("figure");
+    fig.className = "polaroid aparece";
+    var img = document.createElement("img");
+    img.loading = "lazy";
+    img.alt = (datos.papis || "Los papis") + " esperando a " + (datos.bebe || "su bebé");
+    img.addEventListener("error", function () { fig.remove(); });
+    img.src = src;
+    fig.appendChild(img);
+    polaroids.appendChild(fig);
+  });
+
+  /* ---------- Fecha y lugar ---------- */
+  var fecha = datos.fecha ? new Date(datos.fecha + ":00-03:00") : null;
+  if (fecha && isNaN(fecha)) fecha = null;
+
+  if (fecha) {
+    var dia = fecha.toLocaleDateString("es-AR", {
+      weekday: "long", day: "numeric", month: "long", timeZone: "America/Argentina/Buenos_Aires"
+    });
+    var hora = fecha.toLocaleTimeString("es-AR", {
+      hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Argentina/Buenos_Aires"
+    });
+    $("#dato-fecha").textContent = dia.charAt(0).toUpperCase() + dia.slice(1);
+    $("#dato-hora").textContent = "a las " + hora + " h";
+    var agendar = $("#agendar");
+    agendar.href = linkCalendario(fecha);
+    agendar.target = "_blank";
+    agendar.rel = "noopener";
+    agendar.hidden = false;
+  }
+
+  var lugar = datos.lugar || {};
+  if (lugar.nombre) $("#dato-lugar").textContent = lugar.nombre;
+  if (lugar.direccion) $("#dato-direccion").textContent = lugar.direccion;
+  if (lugar.mapsUrl) $("#como-llegar").href = lugar.mapsUrl;
+  else $("#como-llegar").hidden = true;
+
+  function linkCalendario(inicio) {
+    var fin = new Date(inicio.getTime() + 3 * 60 * 60 * 1000);
+    var f = function (d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); };
+    var params = new URLSearchParams({
+      action: "TEMPLATE",
+      text: "Baby shower de " + (datos.bebe || "Emma"),
+      dates: f(inicio) + "/" + f(fin),
+      location: [lugar.nombre, lugar.direccion].filter(Boolean).join(", ") || lugar.mapsUrl || "",
+      details: "¡Te esperamos! " + location.href
+    });
+    return "https://calendar.google.com/calendar/render?" + params.toString();
+  }
+
+  /* ---------- Cuenta regresiva ---------- */
+  if (fecha) {
+    var cuenta = $("#cuenta");
+    var actualizar = function () {
+      var resta = fecha - new Date();
+      if (resta <= 0) {
+        cuenta.hidden = true;
+        $("#cuenta-llego").hidden = false;
+        return false;
+      }
+      cuenta.hidden = false;
+      $("#c-dias").textContent = Math.floor(resta / 864e5);
+      $("#c-horas").textContent = Math.floor(resta / 36e5) % 24;
+      $("#c-min").textContent = Math.floor(resta / 6e4) % 60;
+      $("#c-seg").textContent = Math.floor(resta / 1e3) % 60;
+      return true;
+    };
+    if (actualizar()) {
+      var timer = setInterval(function () { if (!actualizar()) clearInterval(timer); }, 1000);
+    }
+  }
+
+  /* ---------- Confirmación por WhatsApp ---------- */
+  if (datos.confirmarAntesDe) $("#confirmar-antes").textContent = " " + datos.confirmarAntesDe;
+  if (datos.whatsapp) {
+    var mensaje = "¡Hola! Confirmo mi asistencia al baby shower de " + (datos.bebe || "Emma") + " ☀. Mi nombre es: ";
+    var boton = $("#boton-confirmar");
+    boton.href = "https://wa.me/" + datos.whatsapp + "?text=" + encodeURIComponent(mensaje);
+    boton.hidden = false;
+    $("#confirmar-pendiente").hidden = true;
+  }
+
+  /* ---------- Lista de regalos ---------- */
+  var iconos = {
+    panal: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff5b0"/><path d="M10 17h28v6c0 9-6 14-14 14s-14-5-14-14z" fill="#fff" stroke="#ee8dbb" stroke-width="2.5" stroke-linejoin="round"/><path d="M10 21h28" stroke="#ee8dbb" stroke-width="2.5"/><circle cx="24" cy="29" r="3" fill="#ffd95a"/></svg>',
+    body: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff5b0"/><path d="M18 10l-8 6 4 6 4-2v16h12V20l4 2 4-6-8-6c-1 3-3 4-6 4s-5-1-6-4z" fill="#fff" stroke="#ee8dbb" stroke-width="2.5" stroke-linejoin="round"/><path d="M18 36c2 3 10 3 12 0" fill="none" stroke="#ee8dbb" stroke-width="2.5" stroke-linecap="round"/></svg>',
+    patito: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff5b0"/><path d="M14 27c0-3 3-5 6-5-2-2-2-8 4-8 5 0 6 5 4 8h3c3 0 4 3 3 6-1 5-6 8-11 8s-9-4-9-9z" fill="#ffd95a" stroke="#ee8dbb" stroke-width="2.5" stroke-linejoin="round"/><path d="M28 18l5-1-4 3" fill="#ee8dbb"/><circle cx="25" cy="17" r="1.5" fill="#6e4a5a"/></svg>',
+    mamadera: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff5b0"/><path d="M21 8h6l1 6h-8z" fill="#ee8dbb"/><rect x="17" y="14" width="14" height="4" rx="2" fill="#fff" stroke="#ee8dbb" stroke-width="2.5"/><path d="M18 18h12v17a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z" fill="#fff" stroke="#ee8dbb" stroke-width="2.5"/><path d="M22 25h4M22 30h4" stroke="#ee8dbb" stroke-width="2" stroke-linecap="round"/></svg>'
+  };
+
+  var contenedor = $("#lista-regalos");
+  (datos.regalos || []).forEach(function (grupo) {
+    var tarjeta = document.createElement("article");
+    tarjeta.className = "regalo aparece";
+    var cabeza = document.createElement("div");
+    cabeza.className = "regalo-cabeza";
+    cabeza.innerHTML = iconos[grupo.icono] || iconos.panal;
+    cabeza.firstChild.setAttribute("aria-hidden", "true");
+    var titulos = document.createElement("div");
+    var h3 = document.createElement("h3");
+    h3.textContent = grupo.titulo;
+    titulos.appendChild(h3);
+    if (grupo.nota) {
+      var nota = document.createElement("span");
+      nota.className = "nota";
+      nota.textContent = grupo.nota;
+      titulos.appendChild(nota);
+    }
+    cabeza.appendChild(titulos);
+    var ul = document.createElement("ul");
+    grupo.items.forEach(function (item) {
+      var li = document.createElement("li");
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+    tarjeta.appendChild(cabeza);
+    tarjeta.appendChild(ul);
+    contenedor.appendChild(tarjeta);
+  });
+
+  /* ---------- Guirnaldas con estrellitas y solcitos ---------- */
+  document.querySelectorAll(".guirnalda").forEach(function (g) {
+    var cantidad = 7;
+    for (var i = 0; i < cantidad; i++) {
+      var c = document.createElement("span");
+      var esSol = i % 3 === 1;
+      c.className = "colgante" + (esSol ? " es-sol" : "");
+      var largo = 14 + ((i * 37) % 5) * 9;
+      c.style.animationDelay = (-i * 0.45) + "s";
+      c.innerHTML = '<i style="height:' + largo + 'px"></i><svg><use href="' + (esSol ? "#sol" : "#estrella") + '"/></svg>';
+      g.appendChild(c);
+    }
+  });
+
+  /* ---------- Solcitos que flotan ---------- */
+  var fondo = $("#soles-fondo");
+  function lanzarSolcitos(cantidad) {
+    if (reducirMovimiento) return;
+    for (var i = 0; i < cantidad; i++) crearSolcito(i * 900);
+  }
+  function crearSolcito(retraso) {
+    var s = document.createElement("span");
+    var tam = 22 + Math.random() * 34;
+    s.className = "solcito";
+    s.style.width = s.style.height = tam + "px";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.setProperty("--deriva", (Math.random() * 120 - 60) + "px");
+    var dur = 14 + Math.random() * 12;
+    s.style.animationDuration = dur + "s";
+    s.style.animationDelay = retraso / 1000 + "s";
+    s.innerHTML = '<svg><use href="#sol"/></svg>';
+    fondo.appendChild(s);
+    s.addEventListener("animationiteration", function () {
+      s.style.left = Math.random() * 100 + "vw";
+    });
+  }
+
+  /* ---------- Aparecer al hacer scroll ---------- */
+  var aparecen = document.querySelectorAll(".aparece");
+  if ("IntersectionObserver" in window && !reducirMovimiento) {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    aparecen.forEach(function (el) { obs.observe(el); });
+  } else {
+    aparecen.forEach(function (el) { el.classList.add("visible"); });
+  }
+})();
