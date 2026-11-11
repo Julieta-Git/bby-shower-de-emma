@@ -17,9 +17,11 @@ window.INVITACION = {
     mapsUrl: "https://maps.app.goo.gl/JqZJ1VdBRfayikkC6"
   },
 
-  // PENDIENTE: WhatsApp para confirmar asistencia, con código de país y sin "+" ni espacios.
-  // Ejemplo: "5493704123456"
-  whatsapp: null,
+  // WhatsApp para confirmar asistencia (Sol), con código de país y sin "+" ni espacios.
+  whatsapp: "5493756509918",
+
+  // Mensaje que se escribe solo al tocar "Confirmar asistencia".
+  mensajeConfirmar: "Hola Sol! Confirmo mi asistencia para el festejo de Emma ☀️🩷",
 
   // PENDIENTE: fecha límite para confirmar (texto libre, ej. "antes del 10 de diciembre").
   confirmarAntesDe: null,

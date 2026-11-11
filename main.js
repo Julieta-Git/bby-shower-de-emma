@@ -110,7 +110,7 @@
   /* ---------- Confirmación por WhatsApp ---------- */
   if (datos.confirmarAntesDe) $("#confirmar-antes").textContent = " " + datos.confirmarAntesDe;
   if (datos.whatsapp) {
-    var mensaje = "¡Hola! Confirmo mi asistencia al baby shower de " + (datos.bebe || "Emma") + " ☀. Mi nombre es: ";
+    var mensaje = datos.mensajeConfirmar || ("¡Hola! Confirmo mi asistencia al baby shower de " + (datos.bebe || "Emma") + " ☀️");
     var boton = $("#boton-confirmar");
     boton.href = "https://wa.me/" + datos.whatsapp + "?text=" + encodeURIComponent(mensaje);
     boton.hidden = false;

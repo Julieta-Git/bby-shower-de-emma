@@ -9,6 +9,7 @@ Todo se edita en `config.js`:
 - `fecha`: día y hora, formato `"2026-12-20T16:00"`. Al cargarla aparecen la cuenta regresiva y el botón "Agendar".
 - `lugar.nombre` y `lugar.direccion`: el link de Maps ya está cargado.
 - `whatsapp`: número para confirmar asistencia (ej. `5493704123456`). Al cargarlo aparece el botón "Confirmar asistencia".
+- `mensajeConfirmar`: texto que se escribe solo en WhatsApp.
 - `confirmarAntesDe`: texto opcional, ej. `"antes del 10 de diciembre"`.
 - `regalos`: la lista de sugerencias.
 
@@ -25,4 +26,4 @@ Poner en `assets/fotos/`:
 
 - Implementado: portada para abrir, solecitos flotando, guirnaldas, secciones de la inspo, lista de regalos, botón Cómo llegar, cuenta regresiva y confirmación por WhatsApp (se activan con los datos).
 - Publicada en https://bby-shower-de-emma.vercel.app
-- Pendiente: WhatsApp para confirmar (y fecha límite opcional).
+- Pendiente: nada obligatorio (opcional: fecha límite para confirmar).
