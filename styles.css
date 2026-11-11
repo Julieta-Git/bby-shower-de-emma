@@ -374,7 +374,6 @@ main, .pie { position: relative; z-index: 1; }
 /* pantalla de inicio más llena */
 .inicio { background: linear-gradient(180deg, var(--amarillo-suave) 0%, var(--rosa) 60%); padding-top: 90px; }
 .inicio-sub { font-size: 1.3rem; letter-spacing: .08em; margin-top: 12px; }
-.inicio-fecha { font-family: var(--fuente-mano); font-weight: 600; font-size: 1.05rem; color: var(--texto); margin: 4px auto 0; }
 
 /* transición: el sol se funde en un círculo amarillo liso */
 .portada-destello {

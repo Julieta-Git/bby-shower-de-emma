@@ -77,9 +77,6 @@
     });
     $("#dato-fecha").textContent = dia.charAt(0).toUpperCase() + dia.slice(1);
     $("#dato-hora").textContent = "a las " + hora + " h";
-    var inicioFecha = $("#inicio-fecha");
-    inicioFecha.textContent = dia.charAt(0).toUpperCase() + dia.slice(1) + " · " + hora.replace(/:00$/, "") + " h";
-    inicioFecha.hidden = false;
     var agendar = $("#agendar");
     agendar.href = linkCalendario(fecha);
     agendar.target = "_blank";
