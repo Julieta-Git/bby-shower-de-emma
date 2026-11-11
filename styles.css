@@ -32,29 +32,45 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Portada (sobre) ---------- */
 .portada {
-  position: fixed; inset: 0; z-index: 50;
+  position: fixed; inset: 0; z-index: 50; overflow: hidden;
   display: grid; place-items: center;
   background: linear-gradient(180deg, var(--amarillo-suave) 0%, var(--rosa) 100%);
-  transition: opacity .9s ease, visibility .9s;
+  transition: opacity .8s ease, visibility .8s;
 }
 .portada.is-abierta { opacity: 0; visibility: hidden; }
-.portada-contenido { text-align: center; padding: 24px; }
+.portada-contenido { text-align: center; padding: 24px 16px; }
+.portada-sol-caja {
+  display: inline-block; position: relative; z-index: 2;
+  transition: transform 1.3s cubic-bezier(.65, 0, .35, 1);
+  will-change: transform;
+}
 .portada-sol {
-  width: min(52vw, 230px); height: min(52vw, 230px);
+  display: block;
+  width: min(74vw, 340px); height: min(74vw, 340px);
   animation: sube 1.4s cubic-bezier(.2,.8,.2,1) both, flota 5s ease-in-out 1.4s infinite;
 }
 .portada-chico {
   font-family: var(--fuente-mano); color: var(--rosa-texto);
-  margin: 10px 0 0; letter-spacing: .04em;
+  font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+  margin: 14px 0 0; letter-spacing: .03em;
   animation: aparece-suave 1s .6s both;
 }
 .portada-titulo {
   font-family: var(--fuente-script); font-weight: 700;
-  font-size: clamp(2.6rem, 11vw, 4.2rem); line-height: 1.1; margin: 4px 0 26px;
+  font-size: clamp(3.4rem, 16.5vw, 5.4rem); line-height: 1.05; margin: 2px 0 30px;
   color: var(--blanco);
-  text-shadow: 0 0 1px var(--rosa-fuerte), 2px 2px 0 var(--rosa-fuerte), -1px -1px 0 var(--rosa-fuerte), 1px -1px 0 var(--rosa-fuerte), -1px 1px 0 var(--rosa-fuerte);
+  text-shadow: 0 0 1px var(--rosa-fuerte), 3px 3px 0 var(--rosa-fuerte), -1px -1px 0 var(--rosa-fuerte), 1px -1px 0 var(--rosa-fuerte), -1px 1px 0 var(--rosa-fuerte);
   animation: aparece-suave 1s .8s both;
 }
+.portada .boton-abrir { font-size: 1.2rem; padding: 16px 38px; }
+/* al tocar: el texto se va y el sol crece hasta tapar la pantalla */
+.portada.is-expandiendo .portada-chico,
+.portada.is-expandiendo .portada-titulo,
+.portada.is-expandiendo .boton-abrir {
+  animation: none; opacity: 0; transform: scale(.9);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.portada.is-expandiendo .portada-sol { animation: none; }
 .boton-abrir { animation: aparece-suave 1s 1.1s both, late 2.4s ease-in-out 2.2s infinite; }
 
 /* ---------- Soles flotando de fondo ---------- */

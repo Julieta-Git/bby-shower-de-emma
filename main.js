@@ -7,11 +7,28 @@
 
   /* ---------- Portada: abrir la invitación ---------- */
   var portada = $("#portada");
+  var abriendo = false;
   $("#abrir").addEventListener("click", function () {
-    portada.classList.add("is-abierta");
-    document.body.classList.remove("is-locked");
-    lanzarSolcitos(14);
-    setTimeout(function () { portada.remove(); }, 1000);
+    if (abriendo) return;
+    abriendo = true;
+    var abrir = function () {
+      portada.classList.add("is-abierta");
+      document.body.classList.remove("is-locked");
+      lanzarSolcitos(14);
+      setTimeout(function () { portada.remove(); }, 900);
+    };
+    if (reducirMovimiento) { abrir(); return; }
+
+    // El sol viaja al centro y crece hasta tapar toda la pantalla.
+    var sol = $("#portada-sol");
+    var r = sol.getBoundingClientRect();
+    var dx = window.innerWidth / 2 - (r.left + r.width / 2);
+    var dy = window.innerHeight / 2 - (r.top + r.height / 2);
+    var radio = r.width * 0.26; // radio del círculo amarillo dentro del dibujo
+    var escala = (Math.hypot(window.innerWidth, window.innerHeight) / 2) / radio * 5; // tan grande que la carita sale de la pantalla y queda todo amarillo
+    portada.classList.add("is-expandiendo");
+    sol.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + escala + ")";
+    setTimeout(abrir, 1350);
   });
 
   /* ---------- Nombres ---------- */
