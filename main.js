@@ -209,6 +209,12 @@
     });
   }
 
+  /* ---------- "Deslizá": se esconde apenas empieza a bajar ---------- */
+  var baja = $("#baja");
+  window.addEventListener("scroll", function () {
+    baja.classList.toggle("is-oculta", window.scrollY > 60);
+  }, { passive: true });
+
   /* ---------- Aparecer al hacer scroll ---------- */
   var aparecen = document.querySelectorAll(".aparece");
   if ("IntersectionObserver" in window && !reducirMovimiento) {
