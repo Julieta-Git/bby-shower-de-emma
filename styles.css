@@ -438,5 +438,5 @@ main, .pie { position: relative; z-index: 1; }
 
 /* detalles */
 .pie-sol { animation: none; }
-.soles-fondo { z-index: 2; }
+.seccion > .solcito, .pie > .solcito { position: absolute; z-index: 0; max-width: none; margin: 0; pointer-events: none; }
 .solcito svg { opacity: .6; }

@@ -14,7 +14,7 @@
     var abrir = function () {
       portada.classList.add("is-abierta");
       document.body.classList.remove("is-locked");
-      lanzarSolcitos(14);
+      lanzarSolcitos();
       setTimeout(function () { portada.remove(); }, 900);
     };
     if (reducirMovimiento) { abrir(); return; }
@@ -217,12 +217,14 @@
   });
 
   /* ---------- Solcitos que flotan ---------- */
-  var fondo = $("#soles-fondo");
-  function lanzarSolcitos(cantidad) {
+  // Van DETRÁS del contenido: cada sección tiene los suyos, debajo de textos, tarjetas y fotos.
+  function lanzarSolcitos() {
     if (reducirMovimiento) return;
-    for (var i = 0; i < cantidad; i++) crearSolcito(i * 900);
+    document.querySelectorAll(".seccion, .pie").forEach(function (sec, n) {
+      for (var i = 0; i < 2; i++) crearSolcito(sec, (n * 1300 + i * 5200) % 9000);
+    });
   }
-  function crearSolcito(retraso) {
+  function crearSolcito(fondo, retraso) {
     var s = document.createElement("span");
     var tam = 18 + Math.random() * 16;
     s.className = "solcito";
